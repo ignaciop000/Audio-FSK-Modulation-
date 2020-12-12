@@ -24,9 +24,10 @@ class Signal:
         if self.isModulated:
             if filename:
                 filename = self.payload.rawData
-            wf.write("./audio/{0}.wav".format(filename), len(self.signal) / self.payload.bits_length * bitrate / self.nperiods, self.signal.astype(np.dtype('i2')))
+            sampleRate = int(len(self.signal) / self.payload.bits_length * bitrate / self.nperiods)
+            wf.write("./audio/{0}.wav".format(filename), sampleRate, self.signal.astype(np.dtype('i2')))
         else:
-            print "No Modulated Signal Found"
+            print ("No Modulated Signal Found")
 
     def plotSignal(self,start= 0 ,end = True):
         if self.isModulated:
